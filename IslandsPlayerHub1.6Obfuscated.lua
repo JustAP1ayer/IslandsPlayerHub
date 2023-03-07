@@ -1387,34 +1387,19 @@ local Folder = Category.Folder("Settings")
 local Label = Folder.Label("Settings")
 
         -- Creating Buttons
-        local Toggle = Folder.Toggle("Pickup tool aura",function(bool)
-            _G.pickupaura = bool
-            local replicatedStorage = game:GetService("ReplicatedStorage")
-            local netManaged = replicatedStorage:WaitForChild("rbxts_include").node_modules:WaitForChild("@rbxts").net.out._NetManaged
-            
-            while _G.pickupaura == true do
-                wait()
-            
-             pcall(function()
-                    for i, island in ipairs(workspace.Islands:GetChildren()) do
-                        local dropsFolder = island:FindFirstChild("Drops")
-                        if dropsFolder then
-                            for _, tool in ipairs(dropsFolder:GetChildren()) do
-                                if tool:IsA("Tool") then
-                                    local args = {
-                                        [1] = {
-                                            ["tool"] = tool,
-                                            ["kqjanlQGuVskdkadqeoIsaud"] = "\7\240\159\164\163\240\159\164\161\7\n\7\n\7\nbKgozneyunqpntr"
-                                        }
-                                    }
-                                    netManaged.CLIENT_TOOL_PICKUP_REQUEST:InvokeServer(unpack(args))
-                                end
-                            end
-                        end
-                    end
-                end)
-                
-            end
+        local Toggle = Folder.Toggle("Auto drop tools",function(bool)
+_G.googoogaga = bool
+while _G.googoogaga == true do
+local args = {
+    [1] = {
+        ["player_tracking_category"] = "join_from_web",
+        ["tool"] = game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Tool"),
+        ["amount"] = 1
+    }
+}
+
+game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.CLIENT_DROP_TOOL_REQUEST:InvokeServer(unpack(args))
+end
                     end)
 
         -- Creating Buttons
